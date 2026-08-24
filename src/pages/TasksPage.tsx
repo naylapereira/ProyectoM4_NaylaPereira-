@@ -9,6 +9,7 @@ import {
   filterTasks,
   type TaskFilter,
 } from "../features/taskFilters/filterTasks";
+import SendSummaryButton from "../components/tasks/SendSummaryButton";
 
 function TasksPage() {
   const { user } = useAuth();
@@ -21,7 +22,15 @@ function TasksPage() {
       <h1>Mis tareas</h1>
       {loading && <p>Cargando tareas...</p>}
       {error && <p>{error}</p>}
+
       <TaskForm />
+      
+      {user?.email && (
+        <SendSummaryButton
+          email={user.email}
+          tasks={tasks}
+        />
+      )}
       {!loading && !error && (
         <>
           <TaskFilters currentFilter={filter} onChange={setFilter} />
