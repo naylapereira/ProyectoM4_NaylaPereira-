@@ -8,15 +8,18 @@ function RegisterForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
+      setError("");
+
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/tasks");
-    } catch (error) {
-      console.error("Error al registrarse:", error);
+    } catch {
+      setError("No se pudo crear la cuenta. Revisá los datos ingresados.");
     }
   };
 
@@ -37,7 +40,9 @@ function RegisterForm() {
         onChange={(event) => setPassword(event.target.value)}
         required
       />
-
+      
+      {error && <p>{error}</p>}
+      
       <button type="submit">Registrarme</button>
     </form>
   );

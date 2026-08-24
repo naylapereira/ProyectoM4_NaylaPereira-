@@ -11,12 +11,19 @@ type EditTaskFormProps = {
 function EditTaskForm({ task, onCancel }: EditTaskFormProps) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    await updateTask(task.id, { title, description });
-    onCancel();
+    try {
+      setError("");
+
+      await updateTask(task.id, { title, description });
+      onCancel();
+    } catch {
+      setError("No se pudo actualizar la tarea.");
+    }
   };
 
   return (
@@ -32,7 +39,9 @@ function EditTaskForm({ task, onCancel }: EditTaskFormProps) {
         onChange={(event) => setDescription(event.target.value)}
         required
       />
-
+       
+      {error && <p>{error}</p>}
+      
       <button type="submit">Guardar</button>
       <button type="button" onClick={onCancel}>
         Cancelar

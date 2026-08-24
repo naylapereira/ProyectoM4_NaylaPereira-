@@ -6,22 +6,30 @@ import { createTask } from "../../services/tasks/createTask";
 function TaskForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!auth.currentUser) {
+      setError("Tenés que iniciar sesión para crear una tarea.");
       return;
     }
 
-    await createTask({
-      userId: auth.currentUser.uid,
-      title,
-      description,
-    });
+    try {
+      setError("");
 
-    setTitle("");
-    setDescription("");
+      await createTask({
+        userId: auth.currentUser.uid,
+        title,
+        description,
+      });
+
+      setTitle("");
+      setDescription("");
+    } catch {
+      setError("No se pudo crear la tarea.");
+    }
   };
 
   return (
@@ -39,7 +47,8 @@ function TaskForm() {
         placeholder="Descripción"
         required
       />
-
+      {error && <p>{error}</p>}
+      
       <button type="submit">Crear tarea</button>
     </form>
   );

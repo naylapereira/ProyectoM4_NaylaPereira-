@@ -8,11 +8,14 @@ function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
+      setError("");
+
       await signInWithEmailAndPassword(
         auth,
         email,
@@ -20,8 +23,8 @@ function LoginForm() {
       );
 
       navigate("/tasks");
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
+    } catch {
+      setError("No se pudo iniciar sesión. Revisá tus datos.");
     }
   };
 
@@ -42,7 +45,9 @@ function LoginForm() {
         onChange={(event) => setPassword(event.target.value)}
         required
       />
-
+      
+      {error && <p>{error}</p>}
+      
       <button type="submit">Ingresar</button>
     </form>
   );

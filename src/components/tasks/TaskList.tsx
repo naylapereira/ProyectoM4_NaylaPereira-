@@ -40,13 +40,19 @@ function TaskList({ tasks }: TaskListProps) {
               </button>
 
               <button
-                onClick={() => {
+                onClick={async () => {
                   const confirmed = window.confirm(
                     "¿Seguro que querés eliminar esta tarea?"
                   );
 
-                  if (confirmed) {
-                    deleteTask(task.id);
+                  if (!confirmed) {
+                    return;
+                  }
+
+                  try {
+                    await deleteTask(task.id);
+                  } catch {
+                    window.alert("No se pudo eliminar la tarea.");
                   }
                 }}
               >
