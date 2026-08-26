@@ -1,0 +1,22 @@
+.auth-card form {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.auth-card button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+}
+
+.auth-card p {
+  margin-top: 0.75rem;
+}

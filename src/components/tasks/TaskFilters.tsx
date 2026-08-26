@@ -1,4 +1,5 @@
 import type { TaskFilter } from "../../features/taskFilters/filterTasks";
+import "../../styles/tasks/filters.css";
 
 type TaskFiltersProps = {
   currentFilter: TaskFilter;
@@ -10,16 +11,25 @@ function TaskFilters({ currentFilter, onChange }: TaskFiltersProps) {
     currentFilter === filter ? `✓ ${text}` : text;
 
   return (
-    <div>
-      <button onClick={() => onChange("all")}>
+    <div className="task-filters">
+      <button
+        className={currentFilter === "all" ? "active" : ""}
+        onClick={() => onChange("all")}
+      >
         {getButtonText("all", "Todas")}
       </button>
 
-      <button onClick={() => onChange("pending")}>
+      <button
+        className={currentFilter === "pending" ? "active" : ""}
+        onClick={() => onChange("pending")}
+      >
         {getButtonText("pending", "Pendientes")}
       </button>
 
-      <button onClick={() => onChange("completed")}>
+      <button
+        className={currentFilter === "completed" ? "active" : ""}
+        onClick={() => onChange("completed")}
+      >
         {getButtonText("completed", "Completadas")}
       </button>
     </div>

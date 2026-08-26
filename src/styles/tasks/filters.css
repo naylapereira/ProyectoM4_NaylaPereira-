@@ -1,0 +1,17 @@
+.task-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task-filters button {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: white;
+}
+
+.task-filters button.active {
+  background: #222;
+  color: white;
+}

@@ -1,0 +1,42 @@
+.tasks-page {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tasks-page h1 {
+  margin-bottom: 1.25rem;
+  font-size: 1.8rem;
+  color: #312e81;
+}
+
+.tasks-content {
+  display: grid;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .tasks-page {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tasks-page {
+    padding: 2.5rem;
+  }
+}
+
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.tasks-header h1 {
+  margin-bottom: 0;
+}

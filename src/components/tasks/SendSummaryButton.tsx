@@ -21,7 +21,7 @@ function SendSummaryButton({ email, tasks }: SendSummaryButtonProps) {
   };
 
   return (
-    <div>
+    <div className="summary-action">
       <button onClick={handleSend}>Enviar resumen por email</button>
       {message && <p>{message}</p>}
     </div>

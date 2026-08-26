@@ -1,8 +1,9 @@
-import type { Task } from "../../types/Task";
-import { toggleTaskCompleted } from "../../services/tasks/toggleTaskCompleted";
-import { deleteTask } from "../../services/tasks/deleteTask";
 import { useState } from "react";
+import type { Task } from "../../types/Task";
 import EditTaskForm from "./EditTaskForm";
+import TaskItem from "./TaskItem";
+import "../../styles/tasks/task-list.css";
+import { sortTasks } from "../../features/taskFilters/sortTasks";
 
 type TaskListProps = {
   tasks: Task[];
@@ -10,59 +11,26 @@ type TaskListProps = {
 
 function TaskList({ tasks }: TaskListProps) {
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const sortedTasks = sortTasks(tasks);
 
   if (tasks.length === 0) {
     return <p>No tenés tareas todavía.</p>;
   }
 
   return (
-    <section>
-      {tasks.map((task) => (
-        <article key={task.id}>
+    <section className="task-list">
+      {sortedTasks.map((task) => (
+        <article className="task-card" key={task.id}>
           {editingTaskId === task.id ? (
             <EditTaskForm
               task={task}
               onCancel={() => setEditingTaskId(null)}
             />
           ) : (
-            <>
-              <h2>{task.title}</h2>
-              <p>{task.description}</p>
-          
-              <button
-                onClick={() =>
-                  toggleTaskCompleted(task.id, task.completed)
-                }
-              >
-                {task.completed
-                  ? "Marcar pendiente"
-                  : "Marcar completada"}
-              </button>
-
-              <button
-                onClick={async () => {
-                  const confirmed = window.confirm(
-                    "¿Seguro que querés eliminar esta tarea?"
-                  );
-
-                  if (!confirmed) {
-                    return;
-                  }
-
-                  try {
-                    await deleteTask(task.id);
-                  } catch {
-                    window.alert("No se pudo eliminar la tarea.");
-                  }
-                }}
-              >
-                Eliminar
-              </button>
-
-              <button onClick={() => setEditingTaskId(task.id)}>
-                Editar
-              </button>
-            </>
+            <TaskItem
+              task={task}
+              onEdit={() => setEditingTaskId(task.id)}
+            />
           )}
         </article>
       ))}

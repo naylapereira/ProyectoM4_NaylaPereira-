@@ -1,0 +1,49 @@
+.task-actions button,
+.task-form button,
+.summary-action button,
+.logout-button {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 9px;
+  color: white;
+}
+
+.task-form button,
+.summary-action button {
+  background: #817ce4;
+}
+
+.complete-button {
+  background: #26be5e;
+}
+
+.delete-button {
+  background: #cc2626;
+}
+
+.edit-button {
+  background: #ae9e82;
+  color: white;
+}
+
+.logout-button {
+  background: #303947;
+}
+
+button:hover {
+  opacity: 0.88;
+}
+
+.task-actions button {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 480px) {
+  .task-actions {
+    flex-direction: column;
+  }
+
+  .task-actions button {
+    width: 100%;
+  }
+}

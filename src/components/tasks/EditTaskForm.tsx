@@ -27,7 +27,7 @@ function EditTaskForm({ task, onCancel }: EditTaskFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="edit-task-form" onSubmit={handleSubmit}>
       <input
         value={title}
         onChange={(event) => setTitle(event.target.value)}

@@ -10,7 +10,11 @@ function LogoutButton() {
     navigate("/login");
   };
 
-  return <button onClick={handleLogout}>Cerrar sesión</button>;
+  return (
+    <button className="logout-button" onClick={handleLogout}>
+      Cerrar sesión
+    </button>
+  );
 }
 
 export default LogoutButton;

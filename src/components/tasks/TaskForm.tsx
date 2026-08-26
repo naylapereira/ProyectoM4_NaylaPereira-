@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { auth } from "../../services/firebase/firebaseAuth";
 import { createTask } from "../../services/tasks/createTask";
+import "../../styles/tasks/task-form.css";
 
 function TaskForm() {
   const [title, setTitle] = useState("");
@@ -33,7 +34,7 @@ function TaskForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-form" onSubmit={handleSubmit}>
       <input
         value={title}
         onChange={(event) => setTitle(event.target.value)}

@@ -10,6 +10,10 @@ import {
   type TaskFilter,
 } from "../features/taskFilters/filterTasks";
 import SendSummaryButton from "../components/tasks/SendSummaryButton";
+import "../styles/tasks/tasks-page.css";
+import "../styles/tasks/task-actions.css";
+import "../styles/tasks/buttons.css";
+import ThemeToggle from "../components/theme/ThemeToggle";
 
 function TasksPage() {
   const { user } = useAuth();
@@ -18,26 +22,37 @@ function TasksPage() {
   const filteredTasks = filterTasks(tasks, filter);
 
   return (
-    <main>
-      <h1>Mis tareas</h1>
-      {loading && <p>Cargando tareas...</p>}
-      {error && <p>{error}</p>}
+    <main className="tasks-page">
+      <div className="tasks-header">
+        <h1>Mis tareas</h1>
+        <ThemeToggle />
+      </div>
 
-      <TaskForm />
-      
-      {user?.email && (
-        <SendSummaryButton
-          email={user.email}
-          tasks={tasks}
-        />
-      )}
-      {!loading && !error && (
-        <>
-          <TaskFilters currentFilter={filter} onChange={setFilter} />
-          <TaskList tasks={filteredTasks} />
-        </>
-      )}
-      <LogoutButton />
+      <div className="tasks-content">
+        {loading && <p>Cargando tareas...</p>}
+        {error && <p>{error}</p>}
+
+        <TaskForm />
+
+        {user?.email && (
+          <SendSummaryButton
+            email={user.email}
+            tasks={tasks}
+          />
+        )}
+
+        {!loading && !error && (
+          <>
+            <TaskFilters
+              currentFilter={filter}
+              onChange={setFilter}
+            />
+            <TaskList tasks={filteredTasks} />
+          </>
+        )}
+
+        <LogoutButton />
+      </div>
     </main>
   );
 }
