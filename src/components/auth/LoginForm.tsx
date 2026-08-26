@@ -23,8 +23,38 @@ function LoginForm() {
       );
 
       navigate("/tasks");
-    } catch {
-      setError("No se pudo iniciar sesión. Revisá tus datos.");
+    } catch (error: unknown) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error
+      ) {
+        const code = String(error.code);
+
+        if (code === "auth/invalid-credential") {
+          setError("El email o la contraseña son incorrectos.");
+          return;
+        }
+
+        if (code === "auth/user-disabled") {
+          setError("Esta cuenta está deshabilitada.");
+          return;
+        }
+
+        if (code === "auth/too-many-requests") {
+          setError(
+            "Demasiados intentos. Esperá unos minutos e intentá de nuevo."
+          );
+          return;
+        }
+
+        if (code === "auth/network-request-failed") {
+          setError("No se pudo conectar. Revisá tu conexión a internet.");
+          return;
+        }
+      }
+
+      setError("No se pudo iniciar sesión. Intentá nuevamente.");
     }
   };
 
