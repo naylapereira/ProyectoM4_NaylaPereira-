@@ -4,12 +4,11 @@ import { subscribeTasks } from "../services/tasks/subscribeTasks";
 
 export function useTasks(userId: string | undefined) {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(userId));
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!userId) {
-      setLoading(false);
       return;
     }
 
